@@ -15,8 +15,10 @@ class TestHomePage(SimpleTestCase):
 class TestProductsPage(TestCase):
 
     def setUp(self):
-        Product.objects.create(name="Laptop", price=1000)
-        Product.objects.create(name="Laptop", price=800)
+        Product.objects.create(name="Laptop", price=1000, stock_count=5)
+        Product.objects.create(name="Laptop", price=800, stock_count=10)
 
-
+    def test_products_uses_correct_template(self):
+        response = self.client.get(reverse('products'))
+        self.assertTemplateUsed(response, 'products.html')
 
