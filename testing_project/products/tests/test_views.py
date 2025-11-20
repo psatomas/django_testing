@@ -26,7 +26,7 @@ class TestProductsPage(TestCase):
         response = self.client.get(reverse('products'))
         self.assertEqual(len(response.context['products']), 2)
         self.assertContains(response,"Laptop")
-        self.assertContains(response,"phone")
+        self.assertContains(response,"Phone")
         self.assertNotContains(response,"No products available")
 
     def test_product_view_no_products(self):
