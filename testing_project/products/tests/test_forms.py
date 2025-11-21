@@ -18,4 +18,19 @@ class ProductFormTest(TestCase):
 
     def test_dont_create_product_when_submitting_invalid_form(self):
         """Test form submission with invalid data does not create a product."""
-        pass
+        form_data = {
+            'name': '',
+            'price': -50.00,
+            'stock_count': -5,
+        }
+        response = self.client.post(reverse('products'), data=form_data)
+
+        self.assertEqual(response.status_code, 200)
+        self.assertTrue("form" in response.context)
+
+        form = response.context['form']
+        self.assertFormError(form, 'name', 'This field is required.')
+        self.assertFormError(form, 'price', 'Price cannot be negative')
+        self.assertFormError(form, 'stock_count', 'Stock count cannot be negative')
+
+        self.assertFalse(Product.objects.exists())
