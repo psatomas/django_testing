@@ -23,6 +23,18 @@ class PostviewTest(TestCase):
 
         mock_get.assert_called_once_with('https://jsonplaceholder.typicode.com/posts/1')
 
+    @patch('products.views.requests.get')
+    def test_post_view_fail(self, mock_get):
+        """Test that the post view returns 503 on HTTP errors."""
+        mock_get.side_effect = requests.exceptions.RequestException
+
+        response = self.client.get(reverse('post'))
+
+        self.assertEqual(response.status_code, 503)
+        mock_get.assert_called_once_with('https://jsonplaceholder.typicode.com/posts/1')
+
+
+
 class TestProfilePage(TestCase):
 
     def test_profile_view_accessible_for_anonymous_users(self):
