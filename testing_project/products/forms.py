@@ -10,7 +10,7 @@ class ProductForm(forms.ModelForm):
         """ Field level validation for the price field"""
         price = self.cleaned_data.get('price')
         if price < 0:
-            raise forms.ValidationError('price cannot be negative')
+            raise forms.ValidationError('Price cannot be negative')
         return price
     
     def clean_stock_count(self):
