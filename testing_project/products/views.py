@@ -8,7 +8,7 @@ from django.http import JsonResponse, HttpResponse
 
 def post(request):
     try:
-        response = request.get('https://jsonplaceholder.typicode.com/posts/1')
+        response = requests.get('https://jsonplaceholder.typicode.com/posts/1')
         response.raise_for_status()
         return JsonResponse(response.json())
     except RequestException as e:
