@@ -41,6 +41,7 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'products.middleware.MaintenanceModeMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -124,3 +125,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'products.User'
 LOGIN_URL = '/login/'
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+MAINTENANCE_MODE = False
